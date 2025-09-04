@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/flowers.png" type="image/x-icon">
+    <title>Flowers</title>
+</head>
+
+<body>
+    <div class="greetings">
+        <span>H</span>
+        <span>o</span>
+        <span>l</span>
+        <span>a</span>
+        <span>!</span>
+    </div>
+    <div class="description">
+        <span>ESTE DETALLE ES PARA TI :)</span>
+    </div>
+
+    <!-- Nuevo mensaje romántico -->
+    <div class="mensaje">
+        <p>Hola mi amor, feliz cumpleaños. Recuerda que hoy y siempre serás una niña muy especial pa mí, felicies 20</p>
+    </div>
+
+    <!-- Inputs de login -->
+    <div class="login">
+        <label for="username">¿Quién es mi niña consentida?</label><br>
+        <input type="text" id="username" placeholder="Escribe aquí..."><br><br>
+
+        <label for="password">Introduce nuestra fecha especial</label><br>
+        <input type="number" id="password" placeholder="DDMMAAAA" maxlength="8"><br><br>
+    </div>
+
+    <div class="button">
+        <button class="botones" id="loginBtn">
+            <a href="flower.html" style="color: #fff;" id="linkBtn">CLICK AQUÍ</a>
+        </button>
+    </div>
+
+    <p id="mensajeError" style="color: red; display: none;"></p>
+
+    <script>
+        const loginBtn = document.getElementById("loginBtn");
+        const linkBtn = document.getElementById("linkBtn");
+        const usernameInput = document.getElementById("username");
+        const passwordInput = document.getElementById("password");
+        const mensajeError = document.getElementById("mensajeError");
+
+        let intentos = 0;
+        let bloqueado = false;
+
+        // Evitar que funcione el link directo hasta validar
+        linkBtn.addEventListener("click", function (event) {
+            if (bloqueado) {
+                event.preventDefault();
+                return;
+            }
+
+            const username = usernameInput.value.trim().toLowerCase();
+            const password = passwordInput.value.trim();
+
+            const usuariosValidos = ["yo", "leslie"];
+            const passwordValida = "18102023";
+
+            if (usuariosValidos.includes(username) && password === passwordValida) {
+                mensajeError.style.display = "none";
+                // Deja que el link funcione
+            } else {
+                event.preventDefault();
+                intentos++;
+                mensajeError.style.display = "block";
+                mensajeError.textContent = "Respuesta incorrecta, inténtalo de nuevo.";
+
+                if (intentos >= 3) {
+                    bloqueado = true;
+                    mensajeError.textContent = "Chingado amor, como que no te acuerdas mami? Espera 15 segundos...";
+                    setTimeout(() => {
+                        bloqueado = false;
+                        intentos = 0;
+                        mensajeError.style.display = "none";
+                    }, 15000);
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
